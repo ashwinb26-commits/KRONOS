@@ -1,0 +1,7 @@
+# Client-side routing for Cloudflare Pages.
+#
+# Pages matches Functions first, then static assets, then these rules, so
+# /api/* still reaches functions/api/* and real files are still served
+# directly. Anything else is handed to the single-page app so /login and
+# /admin work on a cold load and on refresh.
+/*  /index.html  200

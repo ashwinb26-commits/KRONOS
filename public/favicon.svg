@@ -1,0 +1,6 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 48" role="img" aria-label="DCF Valuation Lab">
+  <rect width="48" height="48" rx="8" fill="#15202e"/>
+  <rect x="8" y="9" width="32" height="30" rx="4" fill="#ffffff"/>
+  <path d="M13 33 L20 25 L26 29 L35 15" fill="none" stroke="#0f6b61" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+  <circle cx="35" cy="15" r="3" fill="#0f6b61"/>
+</svg>
