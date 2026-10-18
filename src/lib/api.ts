@@ -15,6 +15,8 @@ import type {
   ValuationFile,
   ValuationSnapshot,
 } from '../../shared/types';
+import { isValuationFile } from '../../shared/validation';
+import { DATA_FILE_PATH, STATIC_BRANCH, STATIC_REPOSITORY, withBase } from './config';
 
 export class ApiError extends Error {
   readonly code: string;
@@ -116,8 +118,7 @@ export function publishSnapshot(input: {
  * picked up immediately while an unchanged file still comes back as a 304.
  */
 export async function loadPublishedData(): Promise<ValuationFile> {
-  const dataUrl = new URL('data/valuations.json', document.baseURI).href;
-  const response = await fetch(dataUrl, {
+  const response = await fetch(withBase('/data/valuations.json'), {
     headers: { accept: 'application/json' },
     cache: 'no-cache',
   });
@@ -128,4 +129,55 @@ export async function loadPublishedData(): Promise<ValuationFile> {
     });
   }
   return (await response.json()) as ValuationFile;
+}
+
+export interface RepositoryCopy {
+  file: ValuationFile;
+  /** The exact text, so a merge works from precisely what was read. */
+  text: string;
+  /** Where it came from: the repository itself, or the copy deployed with the site. */
+  source: 'repository' | 'deployed';
+}
+
+/**
+ * GitHub Pages only: the data file as it stands in the repository right now.
+ *
+ * The deployed copy can lag the repository by the minute or two a rebuild
+ * takes. If an analyst uploaded a new file and then opened the studio again
+ * before the rebuild finished, working from the deployed copy would silently
+ * drop that upload from the next file. So the studio reads the repository
+ * first, through GitHub's raw file host, and falls back to the deployed copy
+ * only when that cannot be reached (a private repository, or no network).
+ */
+export async function loadRepositoryCopy(): Promise<RepositoryCopy> {
+  if (STATIC_REPOSITORY) {
+    try {
+      const url = `https://raw.githubusercontent.com/${STATIC_REPOSITORY}/${encodeURIComponent(STATIC_BRANCH)}/${DATA_FILE_PATH}?t=${Date.now()}`;
+      const response = await fetch(url, { cache: 'no-store' });
+      if (response.ok) {
+        const text = await response.text();
+        const parsed: unknown = JSON.parse(text);
+        if (isValuationFile(parsed)) return { file: parsed, text, source: 'repository' };
+      }
+    } catch {
+      /* Fall through to the deployed copy. */
+    }
+  }
+
+  const response = await fetch(withBase('/data/valuations.json'), { cache: 'no-cache' });
+  if (!response.ok) {
+    throw new ApiError(response.status, {
+      code: 'data_unavailable',
+      message: 'The published valuation data could not be loaded. Reload the page to try again.',
+    });
+  }
+  const text = await response.text();
+  const parsed: unknown = JSON.parse(text);
+  if (!isValuationFile(parsed)) {
+    throw new ApiError(500, {
+      code: 'corrupt_data',
+      message: 'The deployed data file does not match the snapshot format. Replace it with a file the studio produced.',
+    });
+  }
+  return { file: parsed, text, source: 'deployed' };
 }

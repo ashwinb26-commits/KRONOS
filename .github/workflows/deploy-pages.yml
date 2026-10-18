@@ -1,3 +1,16 @@
+# Builds the site and publishes it to GitHub Pages on every push to main.
+#
+# This is the no-server version: no sign-in and no secrets. The studio works in
+# the browser and downloads an updated data file, which is uploaded to
+# public/data/ to go live. Uploading that file is itself a push to main, so it
+# triggers this workflow and the dashboard updates a minute or two later.
+#
+# One-time setup in the repository: Settings, then Pages, then under "Build and
+# deployment" set Source to "GitHub Actions".
+#
+# The Cloudflare Pages version (with GitHub sign-in and a publish button) is
+# built from the same code without these variables. See docs/setup-guide.md.
+
 name: Deploy to GitHub Pages
 
 on:
@@ -29,19 +42,30 @@ jobs:
 
       - name: Configure GitHub Pages
         uses: actions/configure-pages@v5
-        with:
-          enablement: true
 
       - name: Install dependencies
         run: npm ci --no-audit --no-fund
 
-      - name: Build the static dashboard
-        run: npm run build
+      # Refuses to deploy a data file the studio would reject, so a bad upload
+      # leaves the previous version of the site live instead of breaking it.
+      - name: Check the data file and run the tests
+        run: npm run test:run
 
-      - name: Add SPA fallback
+      - name: Build the static site
+        run: npm run build
+        env:
+          BASE_PATH: /${{ github.event.repository.name }}/
+          VITE_STATIC_MODE: '1'
+          VITE_REPOSITORY: ${{ github.repository }}
+          VITE_BRANCH: ${{ github.ref_name }}
+
+      # GitHub Pages has no rewrite rules. Serving the app as the 404 page
+      # makes deep links such as /admin/historical load the app, which then
+      # reads the path and shows the right screen.
+      - name: Add the deep-link fallback
         run: cp dist/index.html dist/404.html
 
-      - name: Upload Pages artifact
+      - name: Upload the site
         uses: actions/upload-pages-artifact@v3
         with:
           path: dist

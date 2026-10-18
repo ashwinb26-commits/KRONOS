@@ -1,8 +1,9 @@
 /**
  * Validator tests.
  *
- * The shipped data file is validated here too, so a change to the seed script
- * that quietly breaks the schema fails the build rather than the deployment.
+ * These run against a frozen copy of the original seed in tests/fixtures, not
+ * the live data file, because the live file grows every time a snapshot is
+ * published. The live file has its own checks in data-file.test.ts.
  */
 
 import { readFileSync } from 'node:fs';
@@ -12,7 +13,7 @@ import { MAX_PAYLOAD_BYTES, isValuationFile, sanitizeSnapshot, sanitizeText, val
 import type { ValuationFile, ValuationSnapshot } from '../shared/types';
 
 const file = JSON.parse(
-  readFileSync(resolve(process.cwd(), 'public/data/valuations.json'), 'utf8'),
+  readFileSync(resolve(process.cwd(), 'tests/fixtures/seed-valuations.json'), 'utf8'),
 ) as ValuationFile;
 
 const seed = file.snapshots[0];
@@ -23,7 +24,7 @@ const clone = (): ValuationSnapshot => JSON.parse(JSON.stringify(seed)) as Valua
 const errorPaths = (snapshot: unknown) => validateSnapshot(snapshot).errors.map((issue) => issue.path);
 const errorText = (snapshot: unknown) => validateSnapshot(snapshot).errors.map((issue) => issue.message).join(' | ');
 
-describe('the shipped data file', () => {
+describe('the seed data file', () => {
   it('matches the file shape the server expects', () => {
     expect(isValuationFile(file)).toBe(true);
     expect(file.current).toBe(seed.id);

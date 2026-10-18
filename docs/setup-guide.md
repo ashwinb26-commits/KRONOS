@@ -7,6 +7,53 @@ The order matters in one place only: Cloudflare has to exist before the GitHub
 OAuth app, because the OAuth app needs the final URL. Everything else can be
 done in any order.
 
+## The simple way: GitHub Pages, no other accounts
+
+This is what the repository is set up for out of the box. There is no
+sign-in and nothing secret to manage.
+
+### Turn it on (once)
+
+1. In the repository on github.com, open **Settings**, then **Pages** in the
+   left sidebar.
+2. Under **Build and deployment**, set **Source** to **GitHub Actions**.
+3. Open the **Actions** tab. If a run of **Deploy to GitHub Pages** failed
+   before this was set, open it and click **Re-run all jobs**. Otherwise push
+   any change, or click **Run workflow** on that workflow.
+
+When the run turns green the site is at
+`https://<your-username>.github.io/<repository-name>/`. The link is also on
+the **Settings, Pages** screen.
+
+### Update the valuation
+
+1. Open the site and click **Studio** in the header.
+2. Make your changes. They are saved in your browser as you go.
+3. Go to **Validate and publish**, click **Preview update** to check the
+   changes, then **Download updated file** and confirm. A file called
+   `valuations.json` downloads.
+4. Click **Open the GitHub upload page**. Drag `valuations.json` onto it and
+   click **Commit changes**.
+5. Wait a minute or two. The **Actions** tab shows the rebuild; when it turns
+   green the dashboard shows the new release.
+
+If the rebuild goes red, nothing changed on the live site. Open the failed
+run to read why. The usual cause is uploading a file the studio did not make,
+or one that was edited by hand.
+
+### Who can change it
+
+Anyone can open the studio and play with the numbers, the same as they could
+with a downloaded spreadsheet. Only people with write access to the
+repository can upload the file, so only they can change what the site shows.
+Add or remove those people under **Settings, Collaborators**.
+
+---
+
+The rest of this guide sets up the Cloudflare version instead, which adds
+GitHub sign-in and a publish button that commits for you. Skip it unless you
+want that.
+
 ## 1. Get the repository into GitHub
 
 ```bash
@@ -253,13 +300,10 @@ with no trailing slash.
 
 ## Hosting somewhere other than Cloudflare
 
-The dashboard is a static build and will run on any static host, GitHub Pages
-included. Sign-in and publishing will not: they are Cloudflare Pages Functions.
-
-To host the dashboard on GitHub Pages and give up the studio, set `base` in
-`vite.config.ts` to `'/your-repo-name/'`, add a workflow that publishes `dist`,
-and edit the data file in the repository by hand. The six-month maintenance
-guide assumes the studio exists, so most of it stops applying.
+GitHub Pages is covered at the top of this guide. Any other static host works
+the same way: build with `BASE_PATH` set to the folder the site is served
+from and `VITE_STATIC_MODE=1`, serve `dist`, and make unknown paths fall back
+to `index.html`.
 
 Porting the Functions to another platform means rewriting them for that
 platform's runtime. The logic in `functions/_lib/` is plain WebCrypto and fetch

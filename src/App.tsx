@@ -5,6 +5,10 @@
  * /admin and its sub-routes. The session is fetched once here and handed down,
  * so the chrome knows whether to show a sign-in link or the signed-in account.
  *
+ * On GitHub Pages (STATIC_MODE) there is no server, so there is no sign-in:
+ * the studio opens for anyone, works entirely in their browser, and can only
+ * produce a file. Putting that file live needs write access to the repository.
+ *
  * Route protection in this file is a convenience, not a control. Every write
  * endpoint checks the session, the allowlist and the CSRF token again on the
  * server, so navigating to /admin by hand gets an editor with no data in it
@@ -19,6 +23,7 @@ import { PublicDashboard } from './views/PublicDashboard';
 import { LoginView } from './views/LoginView';
 import { AdminStudio } from './views/AdminStudio';
 import { Button } from './components/ui';
+import { STATIC_MODE } from './lib/config';
 
 export default function App() {
   return (
@@ -34,6 +39,11 @@ function Routes() {
   const [sessionLoaded, setSessionLoaded] = useState(false);
 
   const refreshSession = useCallback(async () => {
+    if (STATIC_MODE) {
+      setSession({ authenticated: false, user: null, csrfToken: null, publishConfigured: false });
+      setSessionLoaded(true);
+      return;
+    }
     try {
       setSession(await getSession());
     } catch (error) {
@@ -52,7 +62,7 @@ function Routes() {
   }, [refreshSession]);
 
   if (path === '/login') {
-    return <LoginView session={session} />;
+    return STATIC_MODE ? <RedirectTo path="/admin" /> : <LoginView session={session} />;
   }
 
   const isAdmin = path === '/admin' || path.startsWith('/admin/');
@@ -93,7 +103,7 @@ function Chrome({
 
         <nav className="chrome-nav" aria-label="Main">
           <Link to="/" aria-current={path === '/' ? 'page' : undefined}>Dashboard</Link>
-          {session?.authenticated ? (
+          {STATIC_MODE || session?.authenticated ? (
             <Link to="/admin" aria-current={isAdmin ? 'page' : undefined}>Studio</Link>
           ) : null}
         </nav>
@@ -101,7 +111,7 @@ function Chrome({
         <span className="chrome-spacer" />
 
         <div className="chrome-actions">
-          {session?.authenticated && session.user ? (
+          {STATIC_MODE ? null : session?.authenticated && session.user ? (
             <>
               <span className="text-meta">{session.user.login}</span>
               <Button
@@ -130,6 +140,14 @@ function Chrome({
       </div>
     </header>
   );
+}
+
+function RedirectTo({ path }: { path: string }) {
+  const { navigate } = useRoute();
+  useEffect(() => {
+    navigate(path, { replace: true });
+  }, [navigate, path]);
+  return null;
 }
 
 function SiteFooter() {

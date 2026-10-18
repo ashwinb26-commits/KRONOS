@@ -1,0 +1,1373 @@
+{
+  "schemaVersion": 2,
+  "generatedAt": "2026-10-17T00:00:00.000Z",
+  "current": "snap-2026-10-17",
+  "snapshots": [
+    {
+      "id": "snap-2026-10-17",
+      "createdAt": "2026-10-17T00:00:00.000Z",
+      "publishedBy": "repository-seed",
+      "modelVersion": "1.0.0",
+      "publicationNotes": "Starter snapshot shipped with the repository. Interface and formula test data only. Replace it with extracted statements before publishing any company-specific conclusion.",
+      "dataStatus": "illustrative",
+      "company": {
+        "name": "Asian Paints",
+        "ticker": "ASIANPAINT",
+        "exchange": "NSE",
+        "sector": "Decorative paints and coatings",
+        "currency": "INR",
+        "units": "INR crore, except per-share figures",
+        "consolidationBasis": "Consolidated",
+        "fiscalYearEnd": "31 March",
+        "reportingPeriod": "FY2025-26",
+        "valuationDate": "2026-10-17",
+        "publicationDate": "2026-10-17",
+        "researchNotes": "This snapshot exists to exercise the model, the editor and the publication pipeline. The figures are invented placeholders chosen to reconcile with each other, not numbers read off an annual report, and no valuation conclusion should be drawn from them.\n\nTo turn this into real research: extract the consolidated statements for 5 years, enter each figure with its report, page and unit, set every reported line to verified, re-derive the cost of capital with dated market inputs, then set the data status to verified and publish."
+      },
+      "sources": [
+        {
+          "id": "annual-report-placeholder",
+          "label": "Placeholder source entry, replace with the consolidated annual report used for extraction",
+          "url": "https://example.com/replace-with-annual-report-pdf",
+          "reportYear": "FY2024-25",
+          "retrievedOn": "2026-10-17",
+          "notes": "No figure is linked to this entry. It is here to show the shape of a source record. Add the real document link, then attach each reported figure to it with a page number."
+        }
+      ],
+      "historical": [
+        {
+          "year": "FY2021-22",
+          "revenue": 30000,
+          "operatingExpenses": 23900,
+          "ebitda": 6100,
+          "depreciation": 900,
+          "ebit": 5200,
+          "financeCosts": 240,
+          "profitBeforeTax": 4960,
+          "taxExpense": 1240,
+          "netProfit": 3720,
+          "cashAndEquivalents": 1100,
+          "borrowings": 3000,
+          "receivables": 3600,
+          "inventories": 4200,
+          "tradePayables": 4300,
+          "propertyPlantEquipment": 9000,
+          "otherOperatingAssets": 500,
+          "otherOperatingLiabilities": 700,
+          "leaseLiabilities": 450,
+          "nonControllingInterests": 0,
+          "nonOperatingInvestments": 0,
+          "operatingCashFlow": 4450,
+          "capex": 1500,
+          "changeInWorkingCapital": null,
+          "otherInvestingItems": null,
+          "dilutedShares": 95,
+          "operatingNwc": null,
+          "provenance": {
+            "revenue": {
+              "sourceId": "",
+              "page": "",
+              "statement": "Statement of profit and loss",
+              "unit": "INR crore",
+              "classification": "assumption",
+              "verification": "unverified",
+              "note": "Illustrative placeholder. Replace with the reported figure and its page reference."
+            },
+            "operatingExpenses": {
+              "sourceId": "",
+              "page": "",
+              "statement": "Statement of profit and loss",
+              "unit": "INR crore",
+              "classification": "assumption",
+              "verification": "unverified",
+              "note": "Illustrative placeholder. Replace with the reported figure and its page reference."
+            },
+            "ebitda": {
+              "sourceId": "",
+              "page": "",
+              "statement": "Derived from the statement of profit and loss",
+              "unit": "INR crore",
+              "classification": "assumption",
+              "verification": "unverified",
+              "note": "Illustrative placeholder. Replace with the reported figure and its page reference."
+            },
+            "depreciation": {
+              "sourceId": "",
+              "page": "",
+              "statement": "Statement of profit and loss",
+              "unit": "INR crore",
+              "classification": "assumption",
+              "verification": "unverified",
+              "note": "Illustrative placeholder. Replace with the reported figure and its page reference."
+            },
+            "ebit": {
+              "sourceId": "",
+              "page": "",
+              "statement": "Derived from the statement of profit and loss",
+              "unit": "INR crore",
+              "classification": "assumption",
+              "verification": "unverified",
+              "note": "Illustrative placeholder. Replace with the reported figure and its page reference."
+            },
+            "financeCosts": {
+              "sourceId": "",
+              "page": "",
+              "statement": "Statement of profit and loss",
+              "unit": "INR crore",
+              "classification": "assumption",
+              "verification": "unverified",
+              "note": "Illustrative placeholder. Replace with the reported figure and its page reference."
+            },
+            "profitBeforeTax": {
+              "sourceId": "",
+              "page": "",
+              "statement": "Statement of profit and loss",
+              "unit": "INR crore",
+              "classification": "assumption",
+              "verification": "unverified",
+              "note": "Illustrative placeholder. Replace with the reported figure and its page reference."
+            },
+            "taxExpense": {
+              "sourceId": "",
+              "page": "",
+              "statement": "Statement of profit and loss",
+              "unit": "INR crore",
+              "classification": "assumption",
+              "verification": "unverified",
+              "note": "Illustrative placeholder. Replace with the reported figure and its page reference."
+            },
+            "netProfit": {
+              "sourceId": "",
+              "page": "",
+              "statement": "Statement of profit and loss",
+              "unit": "INR crore",
+              "classification": "assumption",
+              "verification": "unverified",
+              "note": "Illustrative placeholder. Replace with the reported figure and its page reference."
+            },
+            "cashAndEquivalents": {
+              "sourceId": "",
+              "page": "",
+              "statement": "Balance sheet",
+              "unit": "INR crore",
+              "classification": "assumption",
+              "verification": "unverified",
+              "note": "Illustrative placeholder. Replace with the reported figure and its page reference."
+            },
+            "borrowings": {
+              "sourceId": "",
+              "page": "",
+              "statement": "Balance sheet",
+              "unit": "INR crore",
+              "classification": "assumption",
+              "verification": "unverified",
+              "note": "Illustrative placeholder. Replace with the reported figure and its page reference."
+            },
+            "receivables": {
+              "sourceId": "",
+              "page": "",
+              "statement": "Balance sheet",
+              "unit": "INR crore",
+              "classification": "assumption",
+              "verification": "unverified",
+              "note": "Illustrative placeholder. Replace with the reported figure and its page reference."
+            },
+            "inventories": {
+              "sourceId": "",
+              "page": "",
+              "statement": "Balance sheet",
+              "unit": "INR crore",
+              "classification": "assumption",
+              "verification": "unverified",
+              "note": "Illustrative placeholder. Replace with the reported figure and its page reference."
+            },
+            "tradePayables": {
+              "sourceId": "",
+              "page": "",
+              "statement": "Balance sheet",
+              "unit": "INR crore",
+              "classification": "assumption",
+              "verification": "unverified",
+              "note": "Illustrative placeholder. Replace with the reported figure and its page reference."
+            },
+            "propertyPlantEquipment": {
+              "sourceId": "",
+              "page": "",
+              "statement": "Balance sheet",
+              "unit": "INR crore",
+              "classification": "assumption",
+              "verification": "unverified",
+              "note": "Illustrative placeholder. Replace with the reported figure and its page reference."
+            },
+            "otherOperatingAssets": {
+              "sourceId": "",
+              "page": "",
+              "statement": "Balance sheet",
+              "unit": "INR crore",
+              "classification": "assumption",
+              "verification": "unverified",
+              "note": "Illustrative placeholder. Replace with the reported figure and its page reference."
+            },
+            "otherOperatingLiabilities": {
+              "sourceId": "",
+              "page": "",
+              "statement": "Balance sheet",
+              "unit": "INR crore",
+              "classification": "assumption",
+              "verification": "unverified",
+              "note": "Illustrative placeholder. Replace with the reported figure and its page reference."
+            },
+            "leaseLiabilities": {
+              "sourceId": "",
+              "page": "",
+              "statement": "Balance sheet",
+              "unit": "INR crore",
+              "classification": "assumption",
+              "verification": "unverified",
+              "note": "Illustrative placeholder. Replace with the reported figure and its page reference."
+            },
+            "nonControllingInterests": {
+              "sourceId": "",
+              "page": "",
+              "statement": "Illustrative placeholder",
+              "unit": "INR crore",
+              "classification": "assumption",
+              "verification": "unverified",
+              "note": "Illustrative placeholder. Replace with the reported figure and its page reference."
+            },
+            "nonOperatingInvestments": {
+              "sourceId": "",
+              "page": "",
+              "statement": "Illustrative placeholder",
+              "unit": "INR crore",
+              "classification": "assumption",
+              "verification": "unverified",
+              "note": "Illustrative placeholder. Replace with the reported figure and its page reference."
+            },
+            "operatingCashFlow": {
+              "sourceId": "",
+              "page": "",
+              "statement": "Cash flow statement",
+              "unit": "INR crore",
+              "classification": "assumption",
+              "verification": "unverified",
+              "note": "Illustrative placeholder. Replace with the reported figure and its page reference."
+            },
+            "capex": {
+              "sourceId": "",
+              "page": "",
+              "statement": "Cash flow statement",
+              "unit": "INR crore",
+              "classification": "assumption",
+              "verification": "unverified",
+              "note": "Illustrative placeholder. Replace with the reported figure and its page reference."
+            },
+            "dilutedShares": {
+              "sourceId": "",
+              "page": "",
+              "statement": "Earnings per share note",
+              "unit": "INR crore",
+              "classification": "assumption",
+              "verification": "unverified",
+              "note": "Illustrative placeholder. Replace with the reported figure and its page reference."
+            }
+          }
+        },
+        {
+          "year": "FY2022-23",
+          "revenue": 34500,
+          "operatingExpenses": 27920,
+          "ebitda": 6580,
+          "depreciation": 980,
+          "ebit": 5600,
+          "financeCosts": 255,
+          "profitBeforeTax": 5345,
+          "taxExpense": 1336,
+          "netProfit": 4009,
+          "cashAndEquivalents": 1250,
+          "borrowings": 3200,
+          "receivables": 3900,
+          "inventories": 4500,
+          "tradePayables": 4550,
+          "propertyPlantEquipment": 9800,
+          "otherOperatingAssets": 550,
+          "otherOperatingLiabilities": 700,
+          "leaseLiabilities": 500,
+          "nonControllingInterests": 0,
+          "nonOperatingInvestments": 0,
+          "operatingCashFlow": 4600,
+          "capex": 1850,
+          "changeInWorkingCapital": 400,
+          "otherInvestingItems": null,
+          "dilutedShares": 95,
+          "operatingNwc": null,
+          "provenance": {
+            "revenue": {
+              "sourceId": "",
+              "page": "",
+              "statement": "Statement of profit and loss",
+              "unit": "INR crore",
+              "classification": "assumption",
+              "verification": "unverified",
+              "note": "Illustrative placeholder. Replace with the reported figure and its page reference."
+            },
+            "operatingExpenses": {
+              "sourceId": "",
+              "page": "",
+              "statement": "Statement of profit and loss",
+              "unit": "INR crore",
+              "classification": "assumption",
+              "verification": "unverified",
+              "note": "Illustrative placeholder. Replace with the reported figure and its page reference."
+            },
+            "ebitda": {
+              "sourceId": "",
+              "page": "",
+              "statement": "Derived from the statement of profit and loss",
+              "unit": "INR crore",
+              "classification": "assumption",
+              "verification": "unverified",
+              "note": "Illustrative placeholder. Replace with the reported figure and its page reference."
+            },
+            "depreciation": {
+              "sourceId": "",
+              "page": "",
+              "statement": "Statement of profit and loss",
+              "unit": "INR crore",
+              "classification": "assumption",
+              "verification": "unverified",
+              "note": "Illustrative placeholder. Replace with the reported figure and its page reference."
+            },
+            "ebit": {
+              "sourceId": "",
+              "page": "",
+              "statement": "Derived from the statement of profit and loss",
+              "unit": "INR crore",
+              "classification": "assumption",
+              "verification": "unverified",
+              "note": "Illustrative placeholder. Replace with the reported figure and its page reference."
+            },
+            "financeCosts": {
+              "sourceId": "",
+              "page": "",
+              "statement": "Statement of profit and loss",
+              "unit": "INR crore",
+              "classification": "assumption",
+              "verification": "unverified",
+              "note": "Illustrative placeholder. Replace with the reported figure and its page reference."
+            },
+            "profitBeforeTax": {
+              "sourceId": "",
+              "page": "",
+              "statement": "Statement of profit and loss",
+              "unit": "INR crore",
+              "classification": "assumption",
+              "verification": "unverified",
+              "note": "Illustrative placeholder. Replace with the reported figure and its page reference."
+            },
+            "taxExpense": {
+              "sourceId": "",
+              "page": "",
+              "statement": "Statement of profit and loss",
+              "unit": "INR crore",
+              "classification": "assumption",
+              "verification": "unverified",
+              "note": "Illustrative placeholder. Replace with the reported figure and its page reference."
+            },
+            "netProfit": {
+              "sourceId": "",
+              "page": "",
+              "statement": "Statement of profit and loss",
+              "unit": "INR crore",
+              "classification": "assumption",
+              "verification": "unverified",
+              "note": "Illustrative placeholder. Replace with the reported figure and its page reference."
+            },
+            "cashAndEquivalents": {
+              "sourceId": "",
+              "page": "",
+              "statement": "Balance sheet",
+              "unit": "INR crore",
+              "classification": "assumption",
+              "verification": "unverified",
+              "note": "Illustrative placeholder. Replace with the reported figure and its page reference."
+            },
+            "borrowings": {
+              "sourceId": "",
+              "page": "",
+              "statement": "Balance sheet",
+              "unit": "INR crore",
+              "classification": "assumption",
+              "verification": "unverified",
+              "note": "Illustrative placeholder. Replace with the reported figure and its page reference."
+            },
+            "receivables": {
+              "sourceId": "",
+              "page": "",
+              "statement": "Balance sheet",
+              "unit": "INR crore",
+              "classification": "assumption",
+              "verification": "unverified",
+              "note": "Illustrative placeholder. Replace with the reported figure and its page reference."
+            },
+            "inventories": {
+              "sourceId": "",
+              "page": "",
+              "statement": "Balance sheet",
+              "unit": "INR crore",
+              "classification": "assumption",
+              "verification": "unverified",
+              "note": "Illustrative placeholder. Replace with the reported figure and its page reference."
+            },
+            "tradePayables": {
+              "sourceId": "",
+              "page": "",
+              "statement": "Balance sheet",
+              "unit": "INR crore",
+              "classification": "assumption",
+              "verification": "unverified",
+              "note": "Illustrative placeholder. Replace with the reported figure and its page reference."
+            },
+            "propertyPlantEquipment": {
+              "sourceId": "",
+              "page": "",
+              "statement": "Balance sheet",
+              "unit": "INR crore",
+              "classification": "assumption",
+              "verification": "unverified",
+              "note": "Illustrative placeholder. Replace with the reported figure and its page reference."
+            },
+            "otherOperatingAssets": {
+              "sourceId": "",
+              "page": "",
+              "statement": "Balance sheet",
+              "unit": "INR crore",
+              "classification": "assumption",
+              "verification": "unverified",
+              "note": "Illustrative placeholder. Replace with the reported figure and its page reference."
+            },
+            "otherOperatingLiabilities": {
+              "sourceId": "",
+              "page": "",
+              "statement": "Balance sheet",
+              "unit": "INR crore",
+              "classification": "assumption",
+              "verification": "unverified",
+              "note": "Illustrative placeholder. Replace with the reported figure and its page reference."
+            },
+            "leaseLiabilities": {
+              "sourceId": "",
+              "page": "",
+              "statement": "Balance sheet",
+              "unit": "INR crore",
+              "classification": "assumption",
+              "verification": "unverified",
+              "note": "Illustrative placeholder. Replace with the reported figure and its page reference."
+            },
+            "nonControllingInterests": {
+              "sourceId": "",
+              "page": "",
+              "statement": "Illustrative placeholder",
+              "unit": "INR crore",
+              "classification": "assumption",
+              "verification": "unverified",
+              "note": "Illustrative placeholder. Replace with the reported figure and its page reference."
+            },
+            "nonOperatingInvestments": {
+              "sourceId": "",
+              "page": "",
+              "statement": "Illustrative placeholder",
+              "unit": "INR crore",
+              "classification": "assumption",
+              "verification": "unverified",
+              "note": "Illustrative placeholder. Replace with the reported figure and its page reference."
+            },
+            "operatingCashFlow": {
+              "sourceId": "",
+              "page": "",
+              "statement": "Cash flow statement",
+              "unit": "INR crore",
+              "classification": "assumption",
+              "verification": "unverified",
+              "note": "Illustrative placeholder. Replace with the reported figure and its page reference."
+            },
+            "capex": {
+              "sourceId": "",
+              "page": "",
+              "statement": "Cash flow statement",
+              "unit": "INR crore",
+              "classification": "assumption",
+              "verification": "unverified",
+              "note": "Illustrative placeholder. Replace with the reported figure and its page reference."
+            },
+            "changeInWorkingCapital": {
+              "sourceId": "",
+              "page": "",
+              "statement": "Cash flow statement",
+              "unit": "INR crore",
+              "classification": "assumption",
+              "verification": "unverified",
+              "note": "Illustrative placeholder. Replace with the reported figure and its page reference."
+            },
+            "dilutedShares": {
+              "sourceId": "",
+              "page": "",
+              "statement": "Earnings per share note",
+              "unit": "INR crore",
+              "classification": "assumption",
+              "verification": "unverified",
+              "note": "Illustrative placeholder. Replace with the reported figure and its page reference."
+            }
+          }
+        },
+        {
+          "year": "FY2023-24",
+          "revenue": 36000,
+          "operatingExpenses": 28820,
+          "ebitda": 7180,
+          "depreciation": 1080,
+          "ebit": 6100,
+          "financeCosts": 262,
+          "profitBeforeTax": 5838,
+          "taxExpense": 1460,
+          "netProfit": 4378,
+          "cashAndEquivalents": 1350,
+          "borrowings": 3300,
+          "receivables": 4050,
+          "inventories": 4700,
+          "tradePayables": 4730,
+          "propertyPlantEquipment": 10600,
+          "otherOperatingAssets": 580,
+          "otherOperatingLiabilities": 700,
+          "leaseLiabilities": 540,
+          "nonControllingInterests": 0,
+          "nonOperatingInvestments": 0,
+          "operatingCashFlow": 5280,
+          "capex": 2200,
+          "changeInWorkingCapital": 200,
+          "otherInvestingItems": null,
+          "dilutedShares": 95,
+          "operatingNwc": null,
+          "provenance": {
+            "revenue": {
+              "sourceId": "",
+              "page": "",
+              "statement": "Statement of profit and loss",
+              "unit": "INR crore",
+              "classification": "assumption",
+              "verification": "unverified",
+              "note": "Illustrative placeholder. Replace with the reported figure and its page reference."
+            },
+            "operatingExpenses": {
+              "sourceId": "",
+              "page": "",
+              "statement": "Statement of profit and loss",
+              "unit": "INR crore",
+              "classification": "assumption",
+              "verification": "unverified",
+              "note": "Illustrative placeholder. Replace with the reported figure and its page reference."
+            },
+            "ebitda": {
+              "sourceId": "",
+              "page": "",
+              "statement": "Derived from the statement of profit and loss",
+              "unit": "INR crore",
+              "classification": "assumption",
+              "verification": "unverified",
+              "note": "Illustrative placeholder. Replace with the reported figure and its page reference."
+            },
+            "depreciation": {
+              "sourceId": "",
+              "page": "",
+              "statement": "Statement of profit and loss",
+              "unit": "INR crore",
+              "classification": "assumption",
+              "verification": "unverified",
+              "note": "Illustrative placeholder. Replace with the reported figure and its page reference."
+            },
+            "ebit": {
+              "sourceId": "",
+              "page": "",
+              "statement": "Derived from the statement of profit and loss",
+              "unit": "INR crore",
+              "classification": "assumption",
+              "verification": "unverified",
+              "note": "Illustrative placeholder. Replace with the reported figure and its page reference."
+            },
+            "financeCosts": {
+              "sourceId": "",
+              "page": "",
+              "statement": "Statement of profit and loss",
+              "unit": "INR crore",
+              "classification": "assumption",
+              "verification": "unverified",
+              "note": "Illustrative placeholder. Replace with the reported figure and its page reference."
+            },
+            "profitBeforeTax": {
+              "sourceId": "",
+              "page": "",
+              "statement": "Statement of profit and loss",
+              "unit": "INR crore",
+              "classification": "assumption",
+              "verification": "unverified",
+              "note": "Illustrative placeholder. Replace with the reported figure and its page reference."
+            },
+            "taxExpense": {
+              "sourceId": "",
+              "page": "",
+              "statement": "Statement of profit and loss",
+              "unit": "INR crore",
+              "classification": "assumption",
+              "verification": "unverified",
+              "note": "Illustrative placeholder. Replace with the reported figure and its page reference."
+            },
+            "netProfit": {
+              "sourceId": "",
+              "page": "",
+              "statement": "Statement of profit and loss",
+              "unit": "INR crore",
+              "classification": "assumption",
+              "verification": "unverified",
+              "note": "Illustrative placeholder. Replace with the reported figure and its page reference."
+            },
+            "cashAndEquivalents": {
+              "sourceId": "",
+              "page": "",
+              "statement": "Balance sheet",
+              "unit": "INR crore",
+              "classification": "assumption",
+              "verification": "unverified",
+              "note": "Illustrative placeholder. Replace with the reported figure and its page reference."
+            },
+            "borrowings": {
+              "sourceId": "",
+              "page": "",
+              "statement": "Balance sheet",
+              "unit": "INR crore",
+              "classification": "assumption",
+              "verification": "unverified",
+              "note": "Illustrative placeholder. Replace with the reported figure and its page reference."
+            },
+            "receivables": {
+              "sourceId": "",
+              "page": "",
+              "statement": "Balance sheet",
+              "unit": "INR crore",
+              "classification": "assumption",
+              "verification": "unverified",
+              "note": "Illustrative placeholder. Replace with the reported figure and its page reference."
+            },
+            "inventories": {
+              "sourceId": "",
+              "page": "",
+              "statement": "Balance sheet",
+              "unit": "INR crore",
+              "classification": "assumption",
+              "verification": "unverified",
+              "note": "Illustrative placeholder. Replace with the reported figure and its page reference."
+            },
+            "tradePayables": {
+              "sourceId": "",
+              "page": "",
+              "statement": "Balance sheet",
+              "unit": "INR crore",
+              "classification": "assumption",
+              "verification": "unverified",
+              "note": "Illustrative placeholder. Replace with the reported figure and its page reference."
+            },
+            "propertyPlantEquipment": {
+              "sourceId": "",
+              "page": "",
+              "statement": "Balance sheet",
+              "unit": "INR crore",
+              "classification": "assumption",
+              "verification": "unverified",
+              "note": "Illustrative placeholder. Replace with the reported figure and its page reference."
+            },
+            "otherOperatingAssets": {
+              "sourceId": "",
+              "page": "",
+              "statement": "Balance sheet",
+              "unit": "INR crore",
+              "classification": "assumption",
+              "verification": "unverified",
+              "note": "Illustrative placeholder. Replace with the reported figure and its page reference."
+            },
+            "otherOperatingLiabilities": {
+              "sourceId": "",
+              "page": "",
+              "statement": "Balance sheet",
+              "unit": "INR crore",
+              "classification": "assumption",
+              "verification": "unverified",
+              "note": "Illustrative placeholder. Replace with the reported figure and its page reference."
+            },
+            "leaseLiabilities": {
+              "sourceId": "",
+              "page": "",
+              "statement": "Balance sheet",
+              "unit": "INR crore",
+              "classification": "assumption",
+              "verification": "unverified",
+              "note": "Illustrative placeholder. Replace with the reported figure and its page reference."
+            },
+            "nonControllingInterests": {
+              "sourceId": "",
+              "page": "",
+              "statement": "Illustrative placeholder",
+              "unit": "INR crore",
+              "classification": "assumption",
+              "verification": "unverified",
+              "note": "Illustrative placeholder. Replace with the reported figure and its page reference."
+            },
+            "nonOperatingInvestments": {
+              "sourceId": "",
+              "page": "",
+              "statement": "Illustrative placeholder",
+              "unit": "INR crore",
+              "classification": "assumption",
+              "verification": "unverified",
+              "note": "Illustrative placeholder. Replace with the reported figure and its page reference."
+            },
+            "operatingCashFlow": {
+              "sourceId": "",
+              "page": "",
+              "statement": "Cash flow statement",
+              "unit": "INR crore",
+              "classification": "assumption",
+              "verification": "unverified",
+              "note": "Illustrative placeholder. Replace with the reported figure and its page reference."
+            },
+            "capex": {
+              "sourceId": "",
+              "page": "",
+              "statement": "Cash flow statement",
+              "unit": "INR crore",
+              "classification": "assumption",
+              "verification": "unverified",
+              "note": "Illustrative placeholder. Replace with the reported figure and its page reference."
+            },
+            "changeInWorkingCapital": {
+              "sourceId": "",
+              "page": "",
+              "statement": "Cash flow statement",
+              "unit": "INR crore",
+              "classification": "assumption",
+              "verification": "unverified",
+              "note": "Illustrative placeholder. Replace with the reported figure and its page reference."
+            },
+            "dilutedShares": {
+              "sourceId": "",
+              "page": "",
+              "statement": "Earnings per share note",
+              "unit": "INR crore",
+              "classification": "assumption",
+              "verification": "unverified",
+              "note": "Illustrative placeholder. Replace with the reported figure and its page reference."
+            }
+          }
+        },
+        {
+          "year": "FY2024-25",
+          "revenue": 38200,
+          "operatingExpenses": 30520,
+          "ebitda": 7680,
+          "depreciation": 1180,
+          "ebit": 6500,
+          "financeCosts": 266,
+          "profitBeforeTax": 6234,
+          "taxExpense": 1559,
+          "netProfit": 4675,
+          "cashAndEquivalents": 1420,
+          "borrowings": 3350,
+          "receivables": 4250,
+          "inventories": 4900,
+          "tradePayables": 4950,
+          "propertyPlantEquipment": 11400,
+          "otherOperatingAssets": 600,
+          "otherOperatingLiabilities": 700,
+          "leaseLiabilities": 570,
+          "nonControllingInterests": 0,
+          "nonOperatingInvestments": 0,
+          "operatingCashFlow": 5700,
+          "capex": 2400,
+          "changeInWorkingCapital": 200,
+          "otherInvestingItems": null,
+          "dilutedShares": 95,
+          "operatingNwc": null,
+          "provenance": {
+            "revenue": {
+              "sourceId": "",
+              "page": "",
+              "statement": "Statement of profit and loss",
+              "unit": "INR crore",
+              "classification": "assumption",
+              "verification": "unverified",
+              "note": "Illustrative placeholder. Replace with the reported figure and its page reference."
+            },
+            "operatingExpenses": {
+              "sourceId": "",
+              "page": "",
+              "statement": "Statement of profit and loss",
+              "unit": "INR crore",
+              "classification": "assumption",
+              "verification": "unverified",
+              "note": "Illustrative placeholder. Replace with the reported figure and its page reference."
+            },
+            "ebitda": {
+              "sourceId": "",
+              "page": "",
+              "statement": "Derived from the statement of profit and loss",
+              "unit": "INR crore",
+              "classification": "assumption",
+              "verification": "unverified",
+              "note": "Illustrative placeholder. Replace with the reported figure and its page reference."
+            },
+            "depreciation": {
+              "sourceId": "",
+              "page": "",
+              "statement": "Statement of profit and loss",
+              "unit": "INR crore",
+              "classification": "assumption",
+              "verification": "unverified",
+              "note": "Illustrative placeholder. Replace with the reported figure and its page reference."
+            },
+            "ebit": {
+              "sourceId": "",
+              "page": "",
+              "statement": "Derived from the statement of profit and loss",
+              "unit": "INR crore",
+              "classification": "assumption",
+              "verification": "unverified",
+              "note": "Illustrative placeholder. Replace with the reported figure and its page reference."
+            },
+            "financeCosts": {
+              "sourceId": "",
+              "page": "",
+              "statement": "Statement of profit and loss",
+              "unit": "INR crore",
+              "classification": "assumption",
+              "verification": "unverified",
+              "note": "Illustrative placeholder. Replace with the reported figure and its page reference."
+            },
+            "profitBeforeTax": {
+              "sourceId": "",
+              "page": "",
+              "statement": "Statement of profit and loss",
+              "unit": "INR crore",
+              "classification": "assumption",
+              "verification": "unverified",
+              "note": "Illustrative placeholder. Replace with the reported figure and its page reference."
+            },
+            "taxExpense": {
+              "sourceId": "",
+              "page": "",
+              "statement": "Statement of profit and loss",
+              "unit": "INR crore",
+              "classification": "assumption",
+              "verification": "unverified",
+              "note": "Illustrative placeholder. Replace with the reported figure and its page reference."
+            },
+            "netProfit": {
+              "sourceId": "",
+              "page": "",
+              "statement": "Statement of profit and loss",
+              "unit": "INR crore",
+              "classification": "assumption",
+              "verification": "unverified",
+              "note": "Illustrative placeholder. Replace with the reported figure and its page reference."
+            },
+            "cashAndEquivalents": {
+              "sourceId": "",
+              "page": "",
+              "statement": "Balance sheet",
+              "unit": "INR crore",
+              "classification": "assumption",
+              "verification": "unverified",
+              "note": "Illustrative placeholder. Replace with the reported figure and its page reference."
+            },
+            "borrowings": {
+              "sourceId": "",
+              "page": "",
+              "statement": "Balance sheet",
+              "unit": "INR crore",
+              "classification": "assumption",
+              "verification": "unverified",
+              "note": "Illustrative placeholder. Replace with the reported figure and its page reference."
+            },
+            "receivables": {
+              "sourceId": "",
+              "page": "",
+              "statement": "Balance sheet",
+              "unit": "INR crore",
+              "classification": "assumption",
+              "verification": "unverified",
+              "note": "Illustrative placeholder. Replace with the reported figure and its page reference."
+            },
+            "inventories": {
+              "sourceId": "",
+              "page": "",
+              "statement": "Balance sheet",
+              "unit": "INR crore",
+              "classification": "assumption",
+              "verification": "unverified",
+              "note": "Illustrative placeholder. Replace with the reported figure and its page reference."
+            },
+            "tradePayables": {
+              "sourceId": "",
+              "page": "",
+              "statement": "Balance sheet",
+              "unit": "INR crore",
+              "classification": "assumption",
+              "verification": "unverified",
+              "note": "Illustrative placeholder. Replace with the reported figure and its page reference."
+            },
+            "propertyPlantEquipment": {
+              "sourceId": "",
+              "page": "",
+              "statement": "Balance sheet",
+              "unit": "INR crore",
+              "classification": "assumption",
+              "verification": "unverified",
+              "note": "Illustrative placeholder. Replace with the reported figure and its page reference."
+            },
+            "otherOperatingAssets": {
+              "sourceId": "",
+              "page": "",
+              "statement": "Balance sheet",
+              "unit": "INR crore",
+              "classification": "assumption",
+              "verification": "unverified",
+              "note": "Illustrative placeholder. Replace with the reported figure and its page reference."
+            },
+            "otherOperatingLiabilities": {
+              "sourceId": "",
+              "page": "",
+              "statement": "Balance sheet",
+              "unit": "INR crore",
+              "classification": "assumption",
+              "verification": "unverified",
+              "note": "Illustrative placeholder. Replace with the reported figure and its page reference."
+            },
+            "leaseLiabilities": {
+              "sourceId": "",
+              "page": "",
+              "statement": "Balance sheet",
+              "unit": "INR crore",
+              "classification": "assumption",
+              "verification": "unverified",
+              "note": "Illustrative placeholder. Replace with the reported figure and its page reference."
+            },
+            "nonControllingInterests": {
+              "sourceId": "",
+              "page": "",
+              "statement": "Illustrative placeholder",
+              "unit": "INR crore",
+              "classification": "assumption",
+              "verification": "unverified",
+              "note": "Illustrative placeholder. Replace with the reported figure and its page reference."
+            },
+            "nonOperatingInvestments": {
+              "sourceId": "",
+              "page": "",
+              "statement": "Illustrative placeholder",
+              "unit": "INR crore",
+              "classification": "assumption",
+              "verification": "unverified",
+              "note": "Illustrative placeholder. Replace with the reported figure and its page reference."
+            },
+            "operatingCashFlow": {
+              "sourceId": "",
+              "page": "",
+              "statement": "Cash flow statement",
+              "unit": "INR crore",
+              "classification": "assumption",
+              "verification": "unverified",
+              "note": "Illustrative placeholder. Replace with the reported figure and its page reference."
+            },
+            "capex": {
+              "sourceId": "",
+              "page": "",
+              "statement": "Cash flow statement",
+              "unit": "INR crore",
+              "classification": "assumption",
+              "verification": "unverified",
+              "note": "Illustrative placeholder. Replace with the reported figure and its page reference."
+            },
+            "changeInWorkingCapital": {
+              "sourceId": "",
+              "page": "",
+              "statement": "Cash flow statement",
+              "unit": "INR crore",
+              "classification": "assumption",
+              "verification": "unverified",
+              "note": "Illustrative placeholder. Replace with the reported figure and its page reference."
+            },
+            "dilutedShares": {
+              "sourceId": "",
+              "page": "",
+              "statement": "Earnings per share note",
+              "unit": "INR crore",
+              "classification": "assumption",
+              "verification": "unverified",
+              "note": "Illustrative placeholder. Replace with the reported figure and its page reference."
+            }
+          }
+        },
+        {
+          "year": "FY2025-26",
+          "revenue": 40500,
+          "operatingExpenses": 32220,
+          "ebitda": 8280,
+          "depreciation": 1280,
+          "ebit": 7000,
+          "financeCosts": 270,
+          "profitBeforeTax": 6730,
+          "taxExpense": 1683,
+          "netProfit": 5047,
+          "cashAndEquivalents": 1500,
+          "borrowings": 3400,
+          "receivables": 4500,
+          "inventories": 5150,
+          "tradePayables": 5170,
+          "propertyPlantEquipment": 12200,
+          "otherOperatingAssets": 620,
+          "otherOperatingLiabilities": 700,
+          "leaseLiabilities": 600,
+          "nonControllingInterests": 0,
+          "nonOperatingInvestments": 0,
+          "operatingCashFlow": 6180,
+          "capex": 2600,
+          "changeInWorkingCapital": 300,
+          "otherInvestingItems": null,
+          "dilutedShares": 95,
+          "operatingNwc": null,
+          "provenance": {
+            "revenue": {
+              "sourceId": "",
+              "page": "",
+              "statement": "Statement of profit and loss",
+              "unit": "INR crore",
+              "classification": "assumption",
+              "verification": "unverified",
+              "note": "Illustrative placeholder. Replace with the reported figure and its page reference."
+            },
+            "operatingExpenses": {
+              "sourceId": "",
+              "page": "",
+              "statement": "Statement of profit and loss",
+              "unit": "INR crore",
+              "classification": "assumption",
+              "verification": "unverified",
+              "note": "Illustrative placeholder. Replace with the reported figure and its page reference."
+            },
+            "ebitda": {
+              "sourceId": "",
+              "page": "",
+              "statement": "Derived from the statement of profit and loss",
+              "unit": "INR crore",
+              "classification": "assumption",
+              "verification": "unverified",
+              "note": "Illustrative placeholder. Replace with the reported figure and its page reference."
+            },
+            "depreciation": {
+              "sourceId": "",
+              "page": "",
+              "statement": "Statement of profit and loss",
+              "unit": "INR crore",
+              "classification": "assumption",
+              "verification": "unverified",
+              "note": "Illustrative placeholder. Replace with the reported figure and its page reference."
+            },
+            "ebit": {
+              "sourceId": "",
+              "page": "",
+              "statement": "Derived from the statement of profit and loss",
+              "unit": "INR crore",
+              "classification": "assumption",
+              "verification": "unverified",
+              "note": "Illustrative placeholder. Replace with the reported figure and its page reference."
+            },
+            "financeCosts": {
+              "sourceId": "",
+              "page": "",
+              "statement": "Statement of profit and loss",
+              "unit": "INR crore",
+              "classification": "assumption",
+              "verification": "unverified",
+              "note": "Illustrative placeholder. Replace with the reported figure and its page reference."
+            },
+            "profitBeforeTax": {
+              "sourceId": "",
+              "page": "",
+              "statement": "Statement of profit and loss",
+              "unit": "INR crore",
+              "classification": "assumption",
+              "verification": "unverified",
+              "note": "Illustrative placeholder. Replace with the reported figure and its page reference."
+            },
+            "taxExpense": {
+              "sourceId": "",
+              "page": "",
+              "statement": "Statement of profit and loss",
+              "unit": "INR crore",
+              "classification": "assumption",
+              "verification": "unverified",
+              "note": "Illustrative placeholder. Replace with the reported figure and its page reference."
+            },
+            "netProfit": {
+              "sourceId": "",
+              "page": "",
+              "statement": "Statement of profit and loss",
+              "unit": "INR crore",
+              "classification": "assumption",
+              "verification": "unverified",
+              "note": "Illustrative placeholder. Replace with the reported figure and its page reference."
+            },
+            "cashAndEquivalents": {
+              "sourceId": "",
+              "page": "",
+              "statement": "Balance sheet",
+              "unit": "INR crore",
+              "classification": "assumption",
+              "verification": "unverified",
+              "note": "Illustrative placeholder. Replace with the reported figure and its page reference."
+            },
+            "borrowings": {
+              "sourceId": "",
+              "page": "",
+              "statement": "Balance sheet",
+              "unit": "INR crore",
+              "classification": "assumption",
+              "verification": "unverified",
+              "note": "Illustrative placeholder. Replace with the reported figure and its page reference."
+            },
+            "receivables": {
+              "sourceId": "",
+              "page": "",
+              "statement": "Balance sheet",
+              "unit": "INR crore",
+              "classification": "assumption",
+              "verification": "unverified",
+              "note": "Illustrative placeholder. Replace with the reported figure and its page reference."
+            },
+            "inventories": {
+              "sourceId": "",
+              "page": "",
+              "statement": "Balance sheet",
+              "unit": "INR crore",
+              "classification": "assumption",
+              "verification": "unverified",
+              "note": "Illustrative placeholder. Replace with the reported figure and its page reference."
+            },
+            "tradePayables": {
+              "sourceId": "",
+              "page": "",
+              "statement": "Balance sheet",
+              "unit": "INR crore",
+              "classification": "assumption",
+              "verification": "unverified",
+              "note": "Illustrative placeholder. Replace with the reported figure and its page reference."
+            },
+            "propertyPlantEquipment": {
+              "sourceId": "",
+              "page": "",
+              "statement": "Balance sheet",
+              "unit": "INR crore",
+              "classification": "assumption",
+              "verification": "unverified",
+              "note": "Illustrative placeholder. Replace with the reported figure and its page reference."
+            },
+            "otherOperatingAssets": {
+              "sourceId": "",
+              "page": "",
+              "statement": "Balance sheet",
+              "unit": "INR crore",
+              "classification": "assumption",
+              "verification": "unverified",
+              "note": "Illustrative placeholder. Replace with the reported figure and its page reference."
+            },
+            "otherOperatingLiabilities": {
+              "sourceId": "",
+              "page": "",
+              "statement": "Balance sheet",
+              "unit": "INR crore",
+              "classification": "assumption",
+              "verification": "unverified",
+              "note": "Illustrative placeholder. Replace with the reported figure and its page reference."
+            },
+            "leaseLiabilities": {
+              "sourceId": "",
+              "page": "",
+              "statement": "Balance sheet",
+              "unit": "INR crore",
+              "classification": "assumption",
+              "verification": "unverified",
+              "note": "Illustrative placeholder. Replace with the reported figure and its page reference."
+            },
+            "nonControllingInterests": {
+              "sourceId": "",
+              "page": "",
+              "statement": "Illustrative placeholder",
+              "unit": "INR crore",
+              "classification": "assumption",
+              "verification": "unverified",
+              "note": "Illustrative placeholder. Replace with the reported figure and its page reference."
+            },
+            "nonOperatingInvestments": {
+              "sourceId": "",
+              "page": "",
+              "statement": "Illustrative placeholder",
+              "unit": "INR crore",
+              "classification": "assumption",
+              "verification": "unverified",
+              "note": "Illustrative placeholder. Replace with the reported figure and its page reference."
+            },
+            "operatingCashFlow": {
+              "sourceId": "",
+              "page": "",
+              "statement": "Cash flow statement",
+              "unit": "INR crore",
+              "classification": "assumption",
+              "verification": "unverified",
+              "note": "Illustrative placeholder. Replace with the reported figure and its page reference."
+            },
+            "capex": {
+              "sourceId": "",
+              "page": "",
+              "statement": "Cash flow statement",
+              "unit": "INR crore",
+              "classification": "assumption",
+              "verification": "unverified",
+              "note": "Illustrative placeholder. Replace with the reported figure and its page reference."
+            },
+            "changeInWorkingCapital": {
+              "sourceId": "",
+              "page": "",
+              "statement": "Cash flow statement",
+              "unit": "INR crore",
+              "classification": "assumption",
+              "verification": "unverified",
+              "note": "Illustrative placeholder. Replace with the reported figure and its page reference."
+            },
+            "dilutedShares": {
+              "sourceId": "",
+              "page": "",
+              "statement": "Earnings per share note",
+              "unit": "INR crore",
+              "classification": "assumption",
+              "verification": "unverified",
+              "note": "Illustrative placeholder. Replace with the reported figure and its page reference."
+            }
+          }
+        }
+      ],
+      "assumptions": {
+        "revenueGrowthPct": 7,
+        "ebitMarginPct": 17,
+        "taxRatePct": 25,
+        "depreciationPctRevenue": 3.2,
+        "capexPctRevenue": 6,
+        "nwcPctIncrementalRevenue": 18,
+        "waccPct": 10.5036,
+        "terminalGrowthPct": 4,
+        "netDebtCrore": 2500,
+        "dilutedSharesCrore": 95,
+        "forecastYears": 5,
+        "firstForecastYearLabel": "FY2026-27",
+        "perYear": {
+          "revenueGrowthPct": [
+            8,
+            7.5,
+            7,
+            6.5,
+            6
+          ],
+          "ebitMarginPct": [
+            17,
+            17.25,
+            17.5,
+            17.5,
+            17.5
+          ]
+        },
+        "capexMethod": "pctRevenue",
+        "nwcMethod": "pctIncrementalRevenue",
+        "midYearConvention": false,
+        "wacc": {
+          "mode": "derived",
+          "riskFreeRatePct": 6.8,
+          "betaLevered": 0.73,
+          "equityRiskPremiumPct": 5.5,
+          "additionalEquityPremiumPct": 0,
+          "costOfDebtPreTaxPct": 7.5,
+          "marginalTaxRatePct": 25,
+          "equityWeightPct": 94,
+          "debtWeightPct": 6,
+          "manualWaccPct": 10.5
+        },
+        "bridge": {
+          "grossDebt": 3400,
+          "leaseLiabilities": 600,
+          "leasesIncludedInGrossDebt": false,
+          "leaseTreatment": "capitalised",
+          "cashAndEquivalents": 1500,
+          "nonOperatingInvestments": 0,
+          "nonControllingInterests": 0,
+          "otherClaims": 0,
+          "dilutedShares": 95
+        }
+      },
+      "scenarios": {
+        "bull": {
+          "label": "Bull",
+          "notes": "Faster volume growth with premium mix holding, a lower discount rate, and terminal growth closer to nominal economic growth.",
+          "overrides": {
+            "revenueGrowthPct": 9,
+            "ebitMarginPct": 18.5,
+            "waccPct": 9.75,
+            "terminalGrowthPct": 4.5
+          }
+        },
+        "base": {
+          "label": "Base",
+          "notes": "The published assumption set, with growth tapering from 8% to 6% across the forecast.",
+          "overrides": {}
+        },
+        "bear": {
+          "label": "Bear",
+          "notes": "Competitive entry compresses pricing, input costs stay elevated, and the market demands a higher return.",
+          "overrides": {
+            "revenueGrowthPct": 4.5,
+            "ebitMarginPct": 15,
+            "waccPct": 11.5,
+            "terminalGrowthPct": 3.25
+          }
+        }
+      },
+      "sensitivity": {
+        "waccPct": [
+          8.5,
+          9.5,
+          10.5,
+          11.5,
+          12.5
+        ],
+        "terminalGrowthPct": [
+          2,
+          3,
+          4,
+          5,
+          6
+        ]
+      },
+      "results": {
+        "enterpriseValue": 68061.9,
+        "equityValue": 65561.9,
+        "intrinsicValuePerShare": 690.13,
+        "terminalValueShareOfEnterpriseValuePct": 75.37,
+        "waccPct": 10.5036
+      }
+    }
+  ]
+}

@@ -166,6 +166,17 @@ button, input, select, textarea {
 
 .prose { max-width: var(--prose-max); }
 
+/* Numbered instructions, such as the upload steps on GitHub Pages. */
+.steps {
+  margin: 0;
+  padding-left: var(--space-6);
+  max-width: var(--prose-max);
+  display: grid;
+  gap: var(--space-3);
+}
+.steps li { padding-left: var(--space-1); }
+.steps code { overflow-wrap: anywhere; }
+
 .text-meta {
   font-size: var(--text-meta);
   line-height: var(--leading-meta);

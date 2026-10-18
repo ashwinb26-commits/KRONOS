@@ -1,5 +1,24 @@
 # Changelog
 
+## 1.1.0
+
+Runs on GitHub Pages with no other accounts.
+
+- Added a static mode for GitHub Pages. The studio opens without sign-in,
+  runs the same validation and recalculation as the publish endpoint in the
+  browser, and downloads the updated `valuations.json` with upload steps
+- Moved the publish rules into `shared/publish.ts` so the server and the
+  browser apply exactly the same ones
+- The base path now comes from `BASE_PATH`, and the router adds and strips it,
+  so deep links such as `/KRONOS/admin/historical` work under a project URL
+- The studio reads the data file from the repository through GitHub's raw host
+  before falling back to the deployed copy, so a recent upload is never lost
+- Added `tests/data-file.test.ts`: the deploy workflow refuses a data file
+  that is malformed or carries results that do not follow from its inputs,
+  leaving the previous site live
+- Validator and publish tests now read a frozen seed in `tests/fixtures`, so
+  they keep passing as snapshots are published
+
 ## 1.0.0
 
 Built the full site: a public dashboard, GitHub sign-in and a research studio

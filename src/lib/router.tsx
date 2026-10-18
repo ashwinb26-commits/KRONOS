@@ -5,10 +5,16 @@
  * `navigate` so the browser back button, refresh and shareable URLs all work,
  * which matters for the studio: a long edit session deserves a real URL per
  * section rather than hidden tab state.
+ *
+ * Paths inside the app are always written from the root ('/admin'). When the
+ * site is served under a sub-path, such as a GitHub Pages project URL, the
+ * base is added on the way out and removed on the way in, here and nowhere
+ * else.
  */
 
 import { createContext, useCallback, useContext, useEffect, useMemo, useState } from 'react';
 import type { ReactNode } from 'react';
+import { stripBase, withBase } from './config';
 
 interface RouteValue {
   path: string;
@@ -20,7 +26,7 @@ interface RouteValue {
 const RouteContext = createContext<RouteValue | null>(null);
 
 function readLocation() {
-  return { path: window.location.pathname, search: window.location.search };
+  return { path: stripBase(window.location.pathname), search: window.location.search };
 }
 
 export function RouterProvider({ children }: { children: ReactNode }) {
@@ -33,14 +39,15 @@ export function RouterProvider({ children }: { children: ReactNode }) {
   }, []);
 
   const navigate = useCallback((to: string, options?: { replace?: boolean }) => {
-    const target = new URL(to, window.location.origin);
+    const external = /^[a-z][a-z0-9+.-]*:/i.test(to);
+    const target = new URL(external ? to : withBase(to), window.location.origin);
     if (target.origin !== window.location.origin) {
       window.location.assign(to);
       return;
     }
     if (options?.replace) window.history.replaceState(null, '', target);
     else window.history.pushState(null, '', target);
-    setLocation({ path: target.pathname, search: target.search });
+    setLocation({ path: stripBase(target.pathname), search: target.search });
     window.scrollTo({ top: 0, behavior: 'auto' });
   }, []);
 
@@ -75,7 +82,7 @@ export function Link({
   const { navigate } = useRoute();
   return (
     <a
-      href={to}
+      href={withBase(to)}
       onClick={(event) => {
         if (event.defaultPrevented) return;
         if (event.button !== 0 || event.metaKey || event.ctrlKey || event.shiftKey || event.altKey) return;

@@ -18,6 +18,14 @@ function saveBlob(filename: string, blob: Blob) {
   window.setTimeout(() => URL.revokeObjectURL(url), 0);
 }
 
+/**
+ * The whole data file, named exactly as it is in the repository, so uploading
+ * it to public/data replaces the old one instead of sitting next to it.
+ */
+export function downloadDataFile(content: string) {
+  saveBlob('valuations.json', new Blob([content], { type: 'application/json' }));
+}
+
 export function downloadSnapshotJson(snapshot: ValuationSnapshot) {
   saveBlob(
     `${snapshot.company.ticker.toLowerCase()}-${snapshot.id}.json`,

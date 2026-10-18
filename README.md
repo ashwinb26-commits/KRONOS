@@ -16,6 +16,20 @@ editing source code.
 > saying so. Replace it with extracted and verified figures before presenting
 > any company-specific conclusion as research.
 
+## Two ways to host it
+
+| | GitHub Pages | Cloudflare Pages |
+| --- | --- | --- |
+| Accounts needed | GitHub only | GitHub and Cloudflare |
+| Setup | One setting, about 2 minutes | About 30 minutes |
+| Secrets to manage | None | OAuth app, write token, session secret |
+| Studio access | Anyone can open it; only people with write access to the repository can put changes live | GitHub sign-in against an allowlist |
+| Publishing | Studio downloads `valuations.json`, you upload it to `public/data/` on GitHub | Publish button commits for you |
+
+Both are built from this same code. GitHub Pages is the default for this
+repository: the workflow in `.github/workflows/deploy-pages.yml` builds and
+deploys every push to `main`. The setup guide starts with it.
+
 ## What is in the box
 
 - A public research dashboard: reported history, a 5 year forecast, free cash
@@ -30,7 +44,7 @@ editing source code.
   provenance record per figure, assumption controls that recalculate the model
   as they move, a preview that diffs against what is live, and a publish step
   that commits to GitHub.
-- 211 tests covering the formulas, the validator, access control and the
+- 221 tests covering the formulas, the validator, access control and the
   publication pipeline.
 
 ## How a valuation gets published

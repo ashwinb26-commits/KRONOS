@@ -10,6 +10,11 @@
  * goes up with the publish, so an update prepared against an older version is
  * refused instead of overwriting whatever landed in between.
  *
+ * On GitHub Pages there is no server. The studio then reads the repository's
+ * file through GitHub's raw host, and "publishing" runs the very same publish
+ * function the server uses, in the browser, writing to a download instead of
+ * a commit. The analyst uploads that file to the repository.
+ *
  * Everything here is convenience. The server checks the session, the
  * allowlist and the CSRF token again on every write, and recomputes the model
  * itself, so none of this interface is load-bearing for security.
@@ -18,7 +23,10 @@
 import { useCallback, useEffect, useMemo, useState } from 'react';
 import { currentSnapshot } from '../../shared/snapshot';
 import type { PublishResponse, SessionResponse, ValuationFile, ValuationSnapshot } from '../../shared/types';
-import { ApiError, errorDetails, getLiveData, loadPublishedData, publishSnapshot } from '../lib/api';
+import { ApiError, errorDetails, getLiveData, loadPublishedData, loadRepositoryCopy, publishSnapshot } from '../lib/api';
+import { publishSnapshot as prepareSnapshotFile } from '../../shared/publish';
+import { DATA_FILE_PATH, STATIC_BRANCH, STATIC_MODE, STATIC_REPOSITORY } from '../lib/config';
+import { downloadDataFile } from '../lib/download';
 import { formatCrore, formatDate, formatPerShare, formatPercent } from '../lib/format';
 import { useDelayedFlag, useDraft } from '../lib/hooks';
 import { useValuation } from '../lib/model';
@@ -44,6 +52,16 @@ const SECTIONS: Array<{ key: SectionKey; step: string; label: string; path: stri
 function sectionFromPath(path: string): SectionKey {
   const match = SECTIONS.find((section) => section.path === path);
   return match?.key ?? 'company';
+}
+
+/** What the GitHub Pages studio produced, kept so the file can be downloaded again. */
+export interface PreparedFile {
+  snapshotId: string;
+  snapshotCount: number;
+  results: ValuationSnapshot['results'];
+  content: string;
+  /** Whether the merge started from the repository or from the deployed copy. */
+  mergedFrom: 'repository' | 'deployed';
 }
 
 interface LoadedData {
@@ -74,13 +92,14 @@ export function AdminStudio({
   const [publishing, setPublishing] = useState(false);
   const [publishError, setPublishError] = useState<unknown>(null);
   const [publishResult, setPublishResult] = useState<PublishResponse | null>(null);
+  const [prepared, setPrepared] = useState<PreparedFile | null>(null);
 
-  const authenticated = session?.authenticated === true;
+  const authenticated = STATIC_MODE || session?.authenticated === true;
 
   // Protected route, as a convenience. The server refuses the data and the
   // publish endpoint regardless of what this does.
   useEffect(() => {
-    if (sessionLoaded && !authenticated) {
+    if (!STATIC_MODE && sessionLoaded && !authenticated) {
       navigate(`/login?next=${encodeURIComponent(path)}`, { replace: true });
     }
   }, [sessionLoaded, authenticated, navigate, path]);
@@ -88,6 +107,24 @@ export function AdminStudio({
   const load = useCallback(async () => {
     setLoading(true);
     setLoadError(null);
+    if (STATIC_MODE) {
+      try {
+        const copy = await loadRepositoryCopy();
+        setData({
+          file: copy.file,
+          sha: null,
+          repository: STATIC_REPOSITORY,
+          branch: STATIC_BRANCH,
+          dataPath: DATA_FILE_PATH,
+          degraded: false,
+        });
+      } catch (error) {
+        setLoadError(error);
+      } finally {
+        setLoading(false);
+      }
+      return;
+    }
     try {
       const live = await getLiveData();
       setData({
@@ -148,6 +185,47 @@ export function AdminStudio({
   const current = draft.value;
   const { result, error: modelError } = useValuation(current, 'base');
   const showSkeleton = useDelayedFlag(loading, 100);
+
+  const onPrepare = useCallback(async () => {
+    if (!current) return;
+    setPublishing(true);
+    setPublishError(null);
+    try {
+      // Read the file again right now, so the new snapshot is appended to
+      // whatever is in the repository at this moment, including an upload
+      // made since the studio opened.
+      const latest = await loadRepositoryCopy();
+      let content = '';
+      const outcome = await prepareSnapshotFile(
+        { snapshot: current, baseFileSha: null, acknowledgeWarnings: true },
+        {
+          readFile: async () => ({ content: latest.text, sha: null }),
+          writeFile: async (input) => {
+            content = input.content;
+            return { commitSha: '', commitUrl: '', fileSha: '' };
+          },
+          publishedBy: 'studio on GitHub Pages',
+        },
+      );
+      if (!outcome.ok) {
+        setPublishError(new ApiError(outcome.status, outcome));
+        return;
+      }
+      downloadDataFile(content);
+      setPrepared({
+        snapshotId: outcome.snapshotId,
+        snapshotCount: outcome.snapshotCount,
+        results: outcome.results,
+        content,
+        mergedFrom: latest.source,
+      });
+      draft.clear();
+    } catch (error) {
+      setPublishError(error);
+    } finally {
+      setPublishing(false);
+    }
+  }, [current, draft]);
 
   const onPublish = useCallback(async () => {
     if (!current || !session?.csrfToken) return;
@@ -244,7 +322,11 @@ export function AdminStudio({
           <h1 style={{ fontSize: 'var(--text-31)' }}>Model engine studio</h1>
         </div>
         <p className="section-note">
-          {data.degraded
+          {STATIC_MODE
+            ? `Changes stay in this browser until you download the updated file and upload it to ${
+                data.repository ?? 'the repository'
+              }. ${published ? `Last published ${formatDate(published.company.valuationDate)}.` : 'Nothing published yet.'}`
+            : data.degraded
             ? 'Editing the copy deployed with this site, because the repository could not be reached.'
             : `Editing against ${data.repository}, branch ${data.branch}. ${
                 published ? `Last published ${formatDate(published.company.valuationDate)}.` : 'Nothing published yet.'
@@ -321,13 +403,19 @@ export function AdminStudio({
                 repository={data.repository}
                 branch={data.branch}
                 dataPath={data.dataPath}
-                publishConfigured={session?.publishConfigured === true && !data.degraded}
+                publishConfigured={STATIC_MODE || (session?.publishConfigured === true && !data.degraded)}
+                mode={STATIC_MODE ? 'static' : 'server'}
+                prepared={prepared}
+                onDownloadAgain={() => {
+                  if (prepared) downloadDataFile(prepared.content);
+                }}
                 publishing={publishing}
                 publishError={publishError}
                 publishResult={publishResult}
-                onPublish={() => void onPublish()}
+                onPublish={() => void (STATIC_MODE ? onPrepare() : onPublish())}
                 onReload={() => {
                   setPublishResult(null);
+                  setPrepared(null);
                   setPublishError(null);
                   void load();
                 }}

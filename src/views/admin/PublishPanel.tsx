@@ -5,6 +5,10 @@
  * model, diffs the draft against what is live, and shows what a reader would
  * see differently. Publish is a second, named decision taken after that.
  *
+ * On GitHub Pages ('static' mode) the last step is different: the same checks
+ * and recalculation run in the browser, the result is downloaded as the whole
+ * data file, and the panel walks the analyst through uploading it.
+ *
  * The publish button is never disabled. Clicking it with blocking problems
  * lists them and jumps to the first one, which is more use than a dead control.
  */
@@ -19,6 +23,7 @@ import { Banner, Button, ConfirmDialog, CopyButton, EmptyState, TableFrame } fro
 import { External } from '../../components/icons';
 import { verificationSummary } from './editing';
 import type { DcfResult } from '../../../shared/types';
+import type { PreparedFile } from '../AdminStudio';
 
 export function PublishPanel({
   draft,
@@ -35,6 +40,9 @@ export function PublishPanel({
   onPublish,
   onReload,
   onGoToSection,
+  mode = 'server',
+  prepared = null,
+  onDownloadAgain,
 }: {
   draft: ValuationSnapshot;
   published: ValuationSnapshot | null;
@@ -50,7 +58,18 @@ export function PublishPanel({
   onPublish: () => void;
   onReload: () => void;
   onGoToSection: (section: string) => void;
+  mode?: 'server' | 'static';
+  prepared?: PreparedFile | null;
+  onDownloadAgain?: () => void;
 }) {
+  const isStatic = mode === 'static';
+  const actionLabel = isStatic ? 'Download updated file' : 'Publish update';
+  const uploadUrl = repository
+    ? `https://github.com/${repository}/upload/${encodeURIComponent(branch ?? 'main')}/${(dataPath ?? 'public/data/valuations.json')
+        .split('/')
+        .slice(0, -1)
+        .join('/')}`
+    : null;
   const [previewed, setPreviewed] = useState(false);
   const [confirmOpen, setConfirmOpen] = useState(false);
   const [showIssues, setShowIssues] = useState(false);
@@ -85,6 +104,89 @@ export function PublishPanel({
     }
     setConfirmOpen(true);
   };
+
+  if (isStatic && prepared) {
+    return (
+      <div className="stack-6">
+        <Banner
+          tone="ok"
+          title="valuations.json is downloaded and ready to upload"
+          actions={
+            <>
+              {uploadUrl ? (
+                <a className="btn btn-primary" href={uploadUrl} target="_blank" rel="noreferrer noopener">
+                  Open the GitHub upload page <External />
+                </a>
+              ) : null}
+              <Button variant="secondary" onClick={onDownloadAgain}>Download the file again</Button>
+            </>
+          }
+        >
+          It holds every earlier snapshot unchanged plus the new one, {prepared.snapshotId}, for{' '}
+          {prepared.snapshotCount} in total. Nothing is live yet.
+        </Banner>
+
+        <section className="panel">
+          <div className="panel-head">
+            <h3>Put it live in 3 steps</h3>
+          </div>
+          <div className="panel-pad">
+            <ol className="steps">
+              <li>
+                Open the GitHub upload page{repository ? ` for ${repository}` : ''}. It opens on the{' '}
+                <code>public/data</code> folder, where the data file lives. Sign in to GitHub if it asks.
+              </li>
+              <li>
+                Drag the <code>valuations.json</code> you just downloaded onto the page. It has the same name as the
+                file already there, so it replaces it. If your browser renamed it, for example to{' '}
+                <code>valuations (1).json</code>, rename it back first.
+              </li>
+              <li>
+                Click <b>Commit changes</b>. GitHub rebuilds the site on its own and the dashboard shows the new
+                release in a minute or two.
+              </li>
+            </ol>
+          </div>
+        </section>
+
+        {prepared.mergedFrom === 'deployed' ? (
+          <Banner tone="warn" title="Built from the copy deployed with the site">
+            The repository file could not be read directly, so this was built from the deployed copy. If anyone
+            uploaded a file in the last few minutes, wait for the site to update and prepare this again, or that
+            upload will be lost.
+          </Banner>
+        ) : null}
+
+        <TableFrame title="What goes live" unit={draft.company.units}>
+          <table className="data">
+            <caption className="visually-hidden">Results in the prepared file</caption>
+            <tbody>
+              <tr>
+                <th scope="row">Implied value per share</th>
+                <td><span className="num">{formatPerShare(prepared.results.intrinsicValuePerShare)}</span></td>
+              </tr>
+              <tr>
+                <th scope="row">Enterprise value</th>
+                <td><span className="num">{formatCrore(prepared.results.enterpriseValue)}</span></td>
+              </tr>
+              <tr>
+                <th scope="row">Equity value</th>
+                <td><span className="num">{formatCrore(prepared.results.equityValue)}</span></td>
+              </tr>
+              <tr>
+                <th scope="row">Cost of capital used</th>
+                <td><span className="num">{formatPercent(prepared.results.waccPct, 2)}</span></td>
+              </tr>
+            </tbody>
+          </table>
+        </TableFrame>
+
+        <div className="btn-row">
+          <Button variant="secondary" onClick={onReload}>Back to the studio</Button>
+        </div>
+      </div>
+    );
+  }
 
   if (publishResult) {
     return (
@@ -139,7 +241,7 @@ export function PublishPanel({
 
   return (
     <div className="stack-6">
-      {!publishConfigured ? (
+      {!publishConfigured && !isStatic ? (
         <Banner tone="warn" title="Publishing is not configured on this deployment">
           Editing and previewing work, but there is no GitHub write credential set, so nothing can be committed. The
           setup guide covers adding either a GitHub App installation or a fine-grained token.
@@ -277,15 +379,25 @@ export function PublishPanel({
 
       <section className="panel">
         <div className="panel-head">
-          <h3>Publish</h3>
+          <h3>{isStatic ? 'Prepare the update' : 'Publish'}</h3>
           {repository ? <span className="text-meta">{repository}, branch {branch}</span> : null}
         </div>
         <div className="panel-pad stack-4">
-          <p className="text-secondary prose">
-            Publishing commits {dataPath ?? 'the data file'} to {repository ?? 'the configured repository'}. The
-            snapshot is appended with a fresh identifier taken from the valuation date, and every snapshot already in
-            the file is kept exactly as it is.
-          </p>
+          {isStatic ? (
+            <p className="text-secondary prose">
+              This runs the same checks and recalculation a server would, appends the snapshot to the current data
+              file with a fresh identifier taken from the valuation date, and downloads the result as{' '}
+              <code>valuations.json</code>. Every snapshot already in the file is kept exactly as it is. Uploading that
+              file to {repository ?? 'the repository'} is what puts it live, so only someone with write access to the
+              repository can publish.
+            </p>
+          ) : (
+            <p className="text-secondary prose">
+              Publishing commits {dataPath ?? 'the data file'} to {repository ?? 'the configured repository'}. The
+              snapshot is appended with a fresh identifier taken from the valuation date, and every snapshot already in
+              the file is kept exactly as it is.
+            </p>
+          )}
 
           {publishError ? (
             <Banner
@@ -318,13 +430,18 @@ export function PublishPanel({
           ) : null}
 
           <div className="btn-row">
-            <Button variant="primary" busy={publishing} busyLabel="Publishing" onClick={attemptPublish}>
-              Publish update
+            <Button
+              variant="primary"
+              busy={publishing}
+              busyLabel={isStatic ? 'Preparing' : 'Publishing'}
+              onClick={attemptPublish}
+            >
+              {actionLabel}
             </Button>
             <span className="text-meta">
               {blocked
-                ? 'There are blocking problems. Publishing will list them rather than committing anything.'
-                : 'You will be asked to confirm, and shown exactly what gets committed.'}
+                ? `There are blocking problems. ${isStatic ? 'This' : 'Publishing'} will list them rather than ${isStatic ? 'producing a file' : 'committing anything'}.`
+                : `You will be asked to confirm, and shown exactly what ${isStatic ? 'goes into the file' : 'gets committed'}.`}
             </span>
           </div>
         </div>
@@ -332,8 +449,8 @@ export function PublishPanel({
 
       <ConfirmDialog
         open={confirmOpen}
-        title={`Publish a snapshot dated ${formatDate(draft.company.valuationDate)} for ${draft.company.ticker}?`}
-        confirmLabel="Publish update"
+        title={`${isStatic ? 'Prepare' : 'Publish'} a snapshot dated ${formatDate(draft.company.valuationDate)} for ${draft.company.ticker}?`}
+        confirmLabel={actionLabel}
         busy={publishing}
         onCancel={() => setConfirmOpen(false)}
         onConfirm={() => {
@@ -342,8 +459,9 @@ export function PublishPanel({
         }}
       >
         <p className="text-secondary">
-          This commits {dataPath ?? 'the data file'} to {repository ?? 'the repository'} on branch {branch ?? 'main'},
-          appending one new snapshot. Published snapshots are not edited or removed, so the release history stays
+          {isStatic
+            ? 'This downloads the data file with one new snapshot appended. Nothing goes live until you upload it.'
+            : `This commits ${dataPath ?? 'the data file'} to ${repository ?? 'the repository'} on branch ${branch ?? 'main'}, appending one new snapshot.`} Published snapshots are not edited or removed, so the release history stays
           intact.
         </p>
 

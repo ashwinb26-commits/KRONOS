@@ -16,7 +16,7 @@ import { MAX_PAYLOAD_BYTES } from '../shared/validation';
 import type { ValuationFile, ValuationSnapshot } from '../shared/types';
 
 const seedFile = JSON.parse(
-  readFileSync(resolve(process.cwd(), 'public/data/valuations.json'), 'utf8'),
+  readFileSync(resolve(process.cwd(), 'tests/fixtures/seed-valuations.json'), 'utf8'),
 ) as ValuationFile;
 
 const clone = <T>(value: T): T => JSON.parse(JSON.stringify(value)) as T;
@@ -530,5 +530,65 @@ describe('the value movement the studio previews', () => {
   it('reports no change against a first release', () => {
     const movements = valueMovements(null, published.results);
     expect(movements.every((entry) => entry.before === null && entry.deltaPct === null)).toBe(true);
+  });
+});
+
+describe('preparing a file in the browser, as the GitHub Pages studio does', () => {
+  // The static studio calls the shared publish function with a readFile that
+  // returns the repository text and a writeFile that captures the content for
+  // download. This drives exactly that wiring.
+  const prepare = async (existing: ValuationFile, snapshot: ValuationSnapshot) => {
+    let content = '';
+    const outcome = await publishSnapshot(
+      { snapshot, baseFileSha: null, acknowledgeWarnings: true },
+      {
+        readFile: async () => ({ content: `${JSON.stringify(existing, null, 2)}\n`, sha: null }),
+        writeFile: async (input) => {
+          content = input.content;
+          return { commitSha: '', commitUrl: '', fileSha: '' };
+        },
+        publishedBy: 'studio on GitHub Pages',
+        now: () => new Date('2026-10-18T05:00:00Z'),
+      },
+    );
+    return { outcome, content };
+  };
+
+  it('produces a complete file with the earlier snapshots untouched and the new one current', async () => {
+    const draft = clone(seedFile.snapshots[0]);
+    draft.assumptions.terminalGrowthPct = 4.5;
+    const { outcome, content } = await prepare(seedFile, draft);
+    expect(outcome.ok).toBe(true);
+    const written = JSON.parse(content) as ValuationFile;
+    expect(written.snapshots).toHaveLength(seedFile.snapshots.length + 1);
+    expect(written.snapshots[0]).toEqual(seedFile.snapshots[0]);
+    expect(written.current).toBe(written.snapshots[written.snapshots.length - 1].id);
+    expect(written.snapshots[written.snapshots.length - 1].assumptions.terminalGrowthPct).toBe(4.5);
+  });
+
+  it('recomputes the results instead of trusting the draft', async () => {
+    const draft = clone(seedFile.snapshots[0]);
+    draft.results.intrinsicValuePerShare = 999999;
+    const { outcome, content } = await prepare(seedFile, draft);
+    expect(outcome.ok).toBe(true);
+    const written = JSON.parse(content) as ValuationFile;
+    expect(written.snapshots[written.snapshots.length - 1].results.intrinsicValuePerShare).not.toBe(999999);
+  });
+
+  it('produces nothing for a draft with blocking problems', async () => {
+    const draft = clone(seedFile.snapshots[0]);
+    draft.company.name = '';
+    const { outcome, content } = await prepare(seedFile, draft);
+    expect(outcome.ok).toBe(false);
+    expect(content).toBe('');
+  });
+
+  it('can be prepared twice in a row, each time appending to the file before it', async () => {
+    const first = await prepare(seedFile, clone(seedFile.snapshots[0]));
+    const afterFirst = JSON.parse(first.content) as ValuationFile;
+    const second = await prepare(afterFirst, clone(seedFile.snapshots[0]));
+    const afterSecond = JSON.parse(second.content) as ValuationFile;
+    expect(afterSecond.snapshots).toHaveLength(seedFile.snapshots.length + 2);
+    expect(new Set(afterSecond.snapshots.map((s) => s.id)).size).toBe(afterSecond.snapshots.length);
   });
 });
